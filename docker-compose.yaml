@@ -1,0 +1,25 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: mapmakerdb
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-coolstory}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_mapmaker:/data/postgres
+    ports:
+      - "5437:5432"
+    expose:
+      - "5437"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres_mapmaker:
